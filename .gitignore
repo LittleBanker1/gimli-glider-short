@@ -1,0 +1,18 @@
+# heavy or re-creatable data (see HANDOFF.md for how to get it back)
+kenney/
+textures/
+export/
+export_*/
+render/
+final_frames/
+chrome-prof/
+dl/
+gpu.lock
+__pycache__/
+*.blend1
+blender/test_toon*.png
+studio/node_modules/
+studio/out/
+studio/shorts/gimli/audio/stem_*.wav
+# reference screenshots of another channel: private style study only, never published
+studio/references/ricks/
