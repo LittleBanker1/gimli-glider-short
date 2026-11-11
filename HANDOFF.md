@@ -36,7 +36,7 @@ YouTube channel **Ricks Clips** (@RicksClips3000): white-headed 2D bean characte
 
 ## GitHub
 Public repo: https://github.com/LittleBanker1/gimli-glider-short (branch main; repo root = D:\gimli3d, see .gitignore for
-what is left out). GitHub CLI (portable, logged in as LittleBanker1): D:	ools\ghin\gh.exe. In a new chat on
+what is left out). GitHub CLI (portable, logged in as LittleBanker1): D:\tools\gh\bin\gh.exe. In a new chat on
 another machine: `git clone https://github.com/LittleBanker1/gimli-glider-short`, then re-download the Kenney kits and
 ambientCG textures (names in this file and in blender/AGENT_BRIEF.md), `npm install` in studio/, and re-run the exporter.
 
