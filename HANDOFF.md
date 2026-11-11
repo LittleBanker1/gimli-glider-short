@@ -34,6 +34,12 @@ YouTube channel **Ricks Clips** (@RicksClips3000): white-headed 2D bean characte
 - Machine: Windows 11, AMD RX 9060 XT, 16 GB RAM; C: ~80 GB free, D: ~500 GB free. Python 3.12 at
   `%LOCALAPPDATA%\Programs\Python\Python312\python.exe` (use -I), ffmpeg via winget, Node 24, Chrome installed.
 
+## GitHub
+Public repo: https://github.com/LittleBanker1/gimli-glider-short (branch main; repo root = D:\gimli3d, see .gitignore for
+what is left out). GitHub CLI (portable, logged in as LittleBanker1): D:	ools\ghin\gh.exe. In a new chat on
+another machine: `git clone https://github.com/LittleBanker1/gimli-glider-short`, then re-download the Kenney kits and
+ambientCG textures (names in this file and in blender/AGENT_BRIEF.md), `npm install` in studio/, and re-run the exporter.
+
 ## Status (2026-11-11)
 1. DONE: script, Kokoro voice, sound mix, three.js v2 video, look study, all downloads, Blender pipeline verified end to end
    (test render of shot 3 with stub set: cameras/cards/ink correct, ~2 s per frame at 50 %).
