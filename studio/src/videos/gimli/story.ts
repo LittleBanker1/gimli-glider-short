@@ -188,7 +188,7 @@ const CAMS: Record<number, Key[]> = {
   ],
   // 8: the captain from the windscreen side, cracking a grin on "fun"
   8: [
-    { f: 770, s: (f) => dolly([0.2, 1.3, 0.8], [0.55, 1.22, -0.1], pushK(f, 770, 0.0025, 0.006, 30), { fov: 40, roll: -0.03 }) },
+    { f: 770, s: (f) => dolly([0.3, 1.34, 1.55], [0.55, 1.2, -0.1], pushK(f, 770, 0.0025, 0.006, 30), { fov: 40, roll: -0.03 }) },
   ],
   // 9: high and far behind the jet: nothing but cloud to the horizon
   9: [
@@ -196,8 +196,8 @@ const CAMS: Record<number, Key[]> = {
   ],
   // 10: the first officer remembers; push in on "remembered", he points out the window
   10: [
-    { f: 905, s: (f) => dolly([-0.1, 1.32, 0.85], [-0.55, 1.22, -0.1], pushK(f, 905, 0.002), { fov: 40, roll: 0.03 }) },
-    { f: 925, dur: 22, s: (f) => dolly([-0.25, 1.28, 0.6], [-0.55, 1.22, -0.1], pushK(f, 925, 0.0025, 0.006, 28), { fov: 38, roll: -0.02 }) },
+    { f: 905, s: (f) => dolly([-0.3, 1.34, 1.55], [-0.55, 1.2, -0.1], pushK(f, 905, 0.002), { fov: 40, roll: 0.03 }) },
+    { f: 925, dur: 22, s: (f) => dolly([-0.32, 1.32, 1.45], [-0.55, 1.2, -0.1], pushK(f, 925, 0.0025, 0.006, 28), { fov: 38, roll: -0.02 }) },
   ],
   // 11: GIMLI: the old base from the air, the jet tiny on the approach
   11: [{ f: 983, s: (f) => { const p = jetP(11, f); return dolly(add(p, [16, 9, -62]), [0, 0, 160], pushK(f, 983, 0.002), { fov: 46, roll: -0.04 }); } }],

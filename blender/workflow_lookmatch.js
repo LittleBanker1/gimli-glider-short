@@ -9,7 +9,7 @@ export const meta = {
   ],
 }
 
-const STUDIO = 'C:\\Users\\plamb\\AppData\\Local\\Claude-Data\\claude_pzs8sxrjxfjjc\\scratch-workspaces\\1075869b-3b4c-4777-beb3-a01a908a47fd\\d9dcb754-77d8-4770-a5fa-52e3259a2e7f\\scratch-2026-11-10-8476a0\\shorts-studio'
+const STUDIO = 'D:\\gimli3d\\studio'
 const BRIEF = 'D:\\gimli3d\\blender\\AGENT_BRIEF.md'
 const COMMON = `Start by reading ${BRIEF} completely and following it (it has the goal, hard rules, GPU lock, asset paths, module contract, shot table and how to check your work). STUDIO = ${STUDIO}. Communicate in English. Work carefully; quality over speed. Iterate with real renders and LOOK at them.`
 

@@ -4,7 +4,7 @@
 // the sun, painted crescent in the drawing); standing ones get a soft multiply contact blob. Effects are unlit cards.
 // Cards, effects and blobs live on the NOINK layer so the world ink pass never outlines their quads.
 import * as THREE from "three";
-import { Pen, bodyFront, bodySide, KID, SKINS, INK, fxBurst, fxPuff, fxStars, fxShadow, fxContact, Outfit, Expr, FrontOpts, SideOpts } from "./toon";
+import { Pen, bodyFront, bodySide, KID, SKINS, INK, mix, fxBurst, fxPuff, fxShadow, fxContact, Outfit, Expr, FrontOpts, SideOpts } from "./toon";
 import { FPS, SHOTS, V3, smooth, clamp01, W, jetAt, STOP_Z, TD, APRON, COCKPIT, CABIN, GIMLI, CHECKIN } from "./story";
 import { LIGHTS } from "./lights";
 import { NOINK } from "./ink";
@@ -218,17 +218,40 @@ export type Stage = { places: Place[]; fx: FxPlace[] };
 // Gimli roles
 // =====================================================================================================
 const NAVY = "#1f2a44";
-export const CAPTAIN: Outfit = { jacket: NAVY, pants: NAVY, boots: INK, hat: "cap", cap: NAVY, buttons: "#e8c45a", moustache: "#6a5a4a", skin: SKINS[0] };
-export const FO: Outfit = { jacket: NAVY, pants: NAVY, boots: INK, hat: "hair", hair: "#3a2a20", buttons: "#e8c45a", skin: SKINS[2] };
-export const SIMPILOT: Outfit = { jacket: "#2f3f5f", pants: "#2f3f5f", boots: INK, hat: "hair", hair: "#b0844a", buttons: "#d9dde0", skin: SKINS[1] };
-export const FUELER: Outfit = { jacket: "#e8892c", pants: "#e8892c", boots: "#4a3426", hat: "cap", cap: "#2f5f6a", skin: SKINS[3] };
-export const INVESTIGATOR = (v: number): Outfit => ({ jacket: ["#5a5d66", "#6b5a48", "#4a5a6b"][v % 3], pants: "#3b3f52", boots: INK, hat: "hair", hair: ["#2a201a", "#8a8a8a", "#5a3b2a"][v % 3], moustache: v === 1 ? "#8a8a8a" : undefined, skin: SKINS[v % 4] });
-export const AGENT: Outfit = { jacket: "#3f6fb5", pants: "#2c3a5c", boots: INK, hat: "hair", hair: "#5a3b2a", dress: "#3f6fb5", skin: SKINS[1] };
-export const TRAVELLER: Outfit = { jacket: "#2f9a55", pants: "#3b5b9a", boots: "#f4f1ea", hat: "cap", cap: "#f2c230", skin: SKINS[0] };
+const mix2 = (c: string) => mix(c, "#16121e", 0.28);
+const WHITE_C = "#fefaf7", GOLD = "#e8c45a";
+export const CAPTAIN: Outfit = { jacket: NAVY, pants: NAVY, boots: INK, hat: "peaked", cap: NAVY, buttons: GOLD, moustache: "#5a4636", skin: SKINS[0],
+  collar: WHITE_C, tie: "#16121e", epaulettes: GOLD, wings: true, cuffs: GOLD, pocket: true, waist: "#16121e" };
+export const FO: Outfit = { jacket: NAVY, pants: NAVY, boots: INK, hat: "peaked", cap: NAVY, buttons: GOLD, skin: SKINS[2],
+  collar: WHITE_C, tie: "#16121e", epaulettes: GOLD, wings: true, cuffs: GOLD, pocket: true, build: "adult" };
+export const SIMPILOT: Outfit = { jacket: "#3a5a8c", pants: "#2f3f5f", boots: INK, hat: "hair", hair: "#b0844a", hairStyle: "slick", buttons: "#d9dde0", skin: SKINS[1],
+  collar: WHITE_C, tie: "#c8372d", epaulettes: "#d9dde0", wings: true, pocket: true, badge: WHITE_C };
+export const FUELER: Outfit = { jacket: "#f2ead8", pants: "#e8892c", boots: "#4a3426", hat: "cap", cap: "#2f5f6a", muffs: "#d6452f", skin: SKINS[3],
+  bib: "#e8892c", pocket: false, waist: undefined, build: "stout" };
+const SUITS = ["#5a5d66", "#6b5a48", "#4a5a6b"], COATHATS = ["#3a3d47", "#6b5a48", "#8a7a5a"], TIES = ["#c8372d", "#2f8f6a", "#e8a02c"];
+export const INVESTIGATOR = (v: number): Outfit => ({ jacket: SUITS[v % 3], pants: "#3b3f52", boots: INK, hat: "fedora", cap: COATHATS[v % 3], hatband: v % 2 ? "#c8372d" : "#16121e",
+  hair: ["#2a201a", "#8a8a8a", "#5a3b2a"][v % 3], moustache: v === 1 ? "#8a8a8a" : undefined, skin: SKINS[v % 4],
+  collar: WHITE_C, tie: TIES[v % 3], lapels: mix2(SUITS[v % 3]), glasses: v === 0 ? INK : undefined, pocket: v !== 1 });
+export const AGENT: Outfit = { jacket: "#3f6fb5", pants: "#2c3a5c", boots: INK, hat: "hair", hair: "#5a3b2a", hairStyle: "long", dress: "#3f6fb5", skin: SKINS[1],
+  collar: WHITE_C, scarf: "#f2c230", badge: WHITE_C };
+export const TRAVELLER: Outfit = { jacket: "#2f9a55", pants: "#3b5b9a", boots: "#f4f1ea", hat: "cap", cap: "#f2c230", skin: SKINS[0],
+  collar: WHITE_C, pocket: true, glasses: INK };
 const PAX_COATS = ["#c26a3a", "#5d7a3a", "#3f6fb5", "#8c3b4a", "#d9a441", "#7b5ac9", "#2f5f6a", "#b5653f"];
 const HAIRS = ["#3a2a20", "#e0b66a", "#7a4a2a", "#2a201a", "#a85a32", "#8a8a8a"];
-export const PAX = (v: number): Outfit => ({ jacket: PAX_COATS[v % 8], pants: "#3b3f52", boots: "#4a3426", hat: "hair", hair: HAIRS[v % 6], skin: SKINS[v % 4], dress: v % 3 === 1 ? ["#d9a441", "#c25a7a", "#5a8fc2"][v % 3] : undefined, moustache: v % 7 === 2 ? "#4a3426" : undefined });
-export const RACER = (v: number): Outfit => ({ jacket: ["#f4f1e6", "#d6452f", "#2f6fd6", "#f2c230"][v % 4], pants: ["#f4f1e6", "#d6452f", "#2f6fd6", "#1c1f27"][v % 4], boots: INK, hat: "hair", hair: HAIRS[(v + 2) % 6], skin: SKINS[(v + 1) % 4] });
+const PAX_STYLES = ["side", "curly", "bowl", "slick", "bun", "long"] as const;
+export const PAX = (v: number): Outfit => {
+  const dress = v % 3 === 1 ? ["#d9a441", "#c25a7a", "#5a8fc2"][v % 3] : undefined;
+  return { jacket: PAX_COATS[v % 8], pants: "#3b3f52", boots: "#4a3426", hat: "hair", hair: HAIRS[v % 6], skin: SKINS[v % 4], dress,
+    hairStyle: dress ? (v % 2 ? "bowl" : "bun") : PAX_STYLES[(v * 5 + 1) % 4], moustache: v % 7 === 2 ? "#4a3426" : undefined,
+    collar: v % 2 === 0 ? WHITE_C : undefined, tie: v % 3 === 0 ? TIES[v % 3] : undefined, glasses: v % 4 === 1 ? INK : undefined,
+    pocket: v % 5 === 3, lapels: v % 5 === 0 && !dress ? mix2(PAX_COATS[v % 8]) : undefined };
+};
+export const RACER = (v: number): Outfit => {
+  const jac = ["#f4f1e6", "#d6452f", "#2f6fd6", "#f2c230"][v % 4], pan = ["#f4f1e6", "#d6452f", "#2f6fd6", "#1c1f27"][v % 4];
+  const cap = v % 2 === 1;
+  return { jacket: jac, pants: pan, boots: INK, hat: cap ? "cap" : "hair", cap: ["#16121e", "#fefaf7"][v % 2], hair: HAIRS[(v + 2) % 6], skin: SKINS[(v + 1) % 4],
+    waist: v % 4 === 0 ? "#d6452f" : "#16121e", badge: v % 2 ? "#f2c230" : WHITE_C, pocket: true, collar: v % 2 ? undefined : WHITE_C, helmet: cap ? undefined : ["#d6452f", "#2f6fd6", "#f2c230", "#fefaf7"][(v + 1) % 4] };
+};
 
 const WHO = (i: number, o: Outfit, okey: string): Who => ({ i, o, okey });
 /** expression that switches at word frames: [[frame, expr], ...] (lands LEAD before the word) */
@@ -307,10 +330,6 @@ const pilots = (id: number, t: number, cam: CamInfo, out: Stage) => {
   if (sim && f >= W.crashed && f < W.crashed + 14) {
     const u = q((f - W.crashed) / 14, 30);
     out.fx.push({ key: `burst${u}`, cw: 500, ch: 500, draw: (p) => fxBurst(p, u, "#ffd23a", 12, 50, 240), x: 0, y: 1.45, z: 0.9, w: 2.2, h: 2.2 });
-  }
-  if (sim && f >= W.crashed + 18) {
-    const u = q((t * 0.9) % 1, 30);
-    out.fx.push({ key: `stars${u}`, cw: 420, ch: 210, draw: (p) => fxStars(p, u), x: cx, y: 1.78, z: cz - 0.1, w: 0.5, h: 0.25 });
   }
 };
 

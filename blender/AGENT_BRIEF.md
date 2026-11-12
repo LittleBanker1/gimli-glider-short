@@ -8,7 +8,7 @@ outlines on the 3D world, dense props, foreground objects, sharp backgrounds. Ou
 empty". Copy the STYLE only, never their stories, characters or shots.
 
 Read before you start (all mandatory):
-- `C:\Users\plamb\AppData\Local\Claude-Data\claude_pzs8sxrjxfjjc\scratch-workspaces\1075869b-3b4c-4777-beb3-a01a908a47fd\d9dcb754-77d8-4770-a5fa-52e3259a2e7f\scratch-2026-11-10-8476a0\shorts-studio\shorts\gimli\LOOK_STUDY.md`
+- `D:\gimli3d\studio\shorts\gimli\LOOK_STUDY.md`
   (measured reference look, gap list, Blender recipe, asset list per set). Call that project folder STUDIO.
 - Reference frames: `STUDIO\references\ricks\*.jpg` (76 frames, 337x600; LOOK at the ones relevant to your task) and the
   contact sheets `STUDIO\out\cmp\look_sheet*.jpg`. Our old (bad) frames: `STUDIO\out\cmp\ours\*.jpg`.

@@ -16,3 +16,5 @@ studio/out/
 studio/shorts/gimli/audio/stem_*.wav
 # reference screenshots of another channel: private style study only, never published
 studio/references/ricks/
+studio/tts_models/
+out/

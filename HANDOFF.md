@@ -46,8 +46,35 @@ ambientCG textures (names in this file and in blender/AGENT_BRIEF.md), `npm inst
 2. NOT DONE — next step: run the multi-agent workflow (8 builders: jet, sky, apron, cockpit, cabin, gimli, checkin,
    characters; each -> independent review -> fix -> final review). It was launched twice and stopped (first by a session
    end, then by the user) before any file changed. Relaunch with the Workflow tool: `scriptPath` =
-   `D:\gimli3d\blender\workflow_lookmatch.js` (it references STUDIO = the old temp path: if the project moved, edit the
-   STUDIO constant in the script and in AGENT_BRIEF.md first; references\ricks, LOOK_STUDY.md etc. live under STUDIO).
+   `D:\gimli3d\blender\workflow_lookmatch.js`. STUDIO now = `D:\gimli3d\studio` (repointed 2026-11-11 in the script and
+   AGENT_BRIEF.md; node_modules, tts_models and out\cmp were copied there from the old temp folder; tsc shows only the
+   12 known errors in Gimli.tsx/Bridge.tsx). The full workflow (run wf_613e9c15-97e) burned a whole 5-hour window and
+   ~20 % of the weekly limit in ~25 min (8 Opus agents at once) and was STOPPED by the user's choice; it left partial
+   sky/apron/cockpit/gimli sets and textures in blender\tex\. REPLACED by `blender\workflow_build_lite.js` (builders
+   only, Sonnet, two at a time, token-frugal rules; order characters, jet, apron, gimli, sky, cockpit, cabin, checkin),
+   launched 2026-11-11 as run wf_cf7023fe-1e1. Resume in the same chat with `resumeFromRunId` if it stops.
+   Reviews/fix rounds are dropped; do a cheap review later only if the budget allows.
+   RESULT (all 8 done, ~50 min, ~6 % weekly): self-scores characters 6.5, jet 6.5 (shots 16-17 untested), apron 7,
+   gimli 6, sky 7, cockpit 5 (pale, no sunset through windows, thin ink), cabin 5.5, checkin 7. Small sheets of each in
+   render\review\. Seen by the main agent: jet nose looks like a flat grey disc head-on (shots 16-18).
+   v3 build: `python -I blender\render_all.py` (re-export + chunked resumable render of all shots + white-frame re-render
+   + assemble to out\gimli_v3.mp4; log render\render_all.log). Started 2026-11-11 evening.
+   DONE 2026-11-12 00:37: out\gimli_v3.mp4 (68.57 s, 1080x1920, 30 fps, -14.1 LUFS, 0 missing/white renders; sky shots
+   ~30 s/frame, the rest 1-3 s; whole render ~3 h). QA in out\qa_v3\ (report.md, overview.jpg = one frame per shot).
+   Weak spots seen in v3: jet nose is a blunt flat grey disc that reads as an open tube (shots 16-18); cockpit shots
+   5/19 pale and low-contrast; pilot close-ups 8/10 are all head (framing); shot 14 race cars small, bare foreground;
+   a flat blue rectangle on the runway in shot 16. Next: cheap Sonnet fix pass on these if the user wants, then
+   re-render only the affected shots (`render_all.py --skip-export --shots 16,17,18` after deleting those shot dirs).
+   FIX PASS (2026-11-12, done): user asked to remove the "stars" after the crash -> removed the fxStars card (cast.ts)
+   and the spiral "dazed" eyes (toon.ts FACE.dazed now shockHalf eyes); cameras of shots 8/10 pulled back (story.ts);
+   Sonnet agents fixed jet.py (longer pointed white nose, no radome disc), sets/cockpit.py (warmer/darker, thicker ink;
+   sky still not in view since cameras look aft), sets/gimli.py (own grandstands instead of the flat Kenney slab, debris
+   boards removed, saturated race cars + foreground clutter in shot 14). Sheets: render\jetfix_final\sheet2.jpg,
+   cockpitfix_final\sheet.jpg, gimlifix_final\sheet.jpg. Export re-done.
+   v4 RENDER PAUSED by the user at 01:23: shots 2-10 re-rendered; 11, 12, 14-21 still to do (sky shots 1, 9, 13 are
+   kept from v3 on purpose; v3 renders of the re-rendered shots are in render\v3_shots\). To continue:
+   `python -I D:\gimli3d\blender\render_all.py --skip-export` (skips existing frames, assembles out\gimli_v4.mp4),
+   then QA with studio\scripts\short_qa.py and deliver. Nothing committed yet.
 3. After the workflow: re-export cards (`node scripts/export_frames.mjs D:/gimli3d/export` via lockrun) because toon.ts
    changes; render all 21 shots (`render_shot.py --shot N --scale 100` for N=1..21; shot table in AGENT_BRIEF.md);
    `python assemble.py D:\gimli3d\render D:\gimli3d\export <mix.wav> <out.mp4>`; QA with `scripts\short_qa.py`;
