@@ -74,7 +74,13 @@ ambientCG textures (names in this file and in blender/AGENT_BRIEF.md), `npm inst
    v4 RENDER PAUSED by the user at 01:23: shots 2-10 re-rendered; 11, 12, 14-21 still to do (sky shots 1, 9, 13 are
    kept from v3 on purpose; v3 renders of the re-rendered shots are in render\v3_shots\). To continue:
    `python -I D:\gimli3d\blender\render_all.py --skip-export` (skips existing frames, assembles out\gimli_v4.mp4),
-   then QA with studio\scripts\short_qa.py and deliver. Nothing committed yet.
+   then QA with studio\scripts\short_qa.py and deliver.
+   2026-11-12: everything committed and pushed (commit 9222ce9); the v3 video is on GitHub as Release v3
+   (https://github.com/LittleBanker1/gimli-glider-short/releases/tag/v3). The user then chose NOT to render v4 for now
+   and to delete the junk on D: (render\, final_frames\, the test export_* folders, D:\remotion-tmp, D:\tools\dl; ~11 GB
+   freed). So ALL renders are gone: v4 needs a full render (~3-4 h incl. the sky shots 1/9/13):
+   `python -I D:\gimli3d\blender\render_all.py --skip-export` (export\ is current), then upload v4 as a new release.
+   Still on disk: the project, export\, kenney\, textures\, out\gimli_v3.mp4 + out\qa_v3\, D:\tools\blender + gh.
 3. After the workflow: re-export cards (`node scripts/export_frames.mjs D:/gimli3d/export` via lockrun) because toon.ts
    changes; render all 21 shots (`render_shot.py --shot N --scale 100` for N=1..21; shot table in AGENT_BRIEF.md);
    `python assemble.py D:\gimli3d\render D:\gimli3d\export <mix.wav> <out.mp4>`; QA with `scripts\short_qa.py`;
